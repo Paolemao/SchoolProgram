@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"BehaviourTree","translation":{"x":-5396.32,"y":-4691.044},"zoomFactor":0.9499531,"nodes":[{"dynamic":true,"_nodeColor":{"r":0.7019608,"g":1.0,"b":0.4980392,"a":1.0},"_position":{"x":6198.353,"y":5111.815},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"2"},{"_condition":{"target":{"_value":1},"maxDistance":{"_value":30.0},"viewAngle":{"_value":23.0},"offset":{"y":0.49},"$type":"NodeCanvas.Tasks.Conditions.CanSeeTarget"},"_position":{"x":6008.818,"y":5296.479},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"3"},{"_condition":{"timeout":{"_value":1.0},"$type":"NodeCanvas.Tasks.Conditions.Timeout"},"_position":{"x":5953.278,"y":5426.56},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"8"},{"_action":{"method":{"_returnInfo":"System.Void","_baseInfo":"Firing|Start","_paramsInfo":""},"parameters":[],"returnValue":{},"overrideAgent":{"_value":2},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},"_position":{"x":5893.762,"y":5557.715},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
