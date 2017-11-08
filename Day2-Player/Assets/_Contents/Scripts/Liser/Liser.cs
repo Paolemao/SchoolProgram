@@ -26,7 +26,7 @@ public class Liser : MonoBehaviour {
             endPoint = transform.InverseTransformPoint(hit.point);
             if (hit.collider.tag == tagName)
             {
-                GamePlayChacter.Player.Dead();
+                GamePlayChacter.Player.Die();
             }
             line.SetPosition(1, endPoint);
         }

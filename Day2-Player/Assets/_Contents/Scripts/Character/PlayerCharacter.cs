@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCharacter : Character {
+public class PlayerCharacter : AllCharacter {
 
-    public override void UpdateControl()
+    bool canControl = true;
+    protected override void UpdateControl()
     {
-        base.UpdateControl();
+        if (!canControl) return;
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
-        bool crouch = Input.GetKey(KeyCode.C);
-        
+        bool crouch = Input.GetKey(KeyCode.B);
         var move = h * Vector3.right + v * Vector3.forward;
-        Addmove(move);
-        UPdateCrouch(crouch);
+        Movement(move);
+        Crouching(crouch);
+        Aiming(Input.GetButton("Fire2"));
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Vector3 dashVelocity = transform.forward * 100;
+            rigi.AddForce(dashVelocity,ForceMode.VelocityChange);
+        }
         //return move;//
     }
     public void Fard()

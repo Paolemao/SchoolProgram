@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Hitting : MonoBehaviour {
 
-    public string tag;
+    public string tagName;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == tag)
+        if (collision.collider.tag == tagName)
         {
-            GamePlayChacter.Player.Dead();
+            GamePlayChacter.Player.Die();
         }
     }
 }
