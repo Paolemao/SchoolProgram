@@ -51,6 +51,6 @@ public class Vision01 : MonoBehaviour {
     void OnEnemySpotted(GameObject enemy)
     {
         enemy.GetComponent<Enemy>().spottedFrame = Time.frameCount;
-        Debug.Log(enemy.GetComponent<Enemy>().spottedFrame);
+        //Debug.Log(enemy.GetComponent<Enemy>().spottedFrame);
     }
 }

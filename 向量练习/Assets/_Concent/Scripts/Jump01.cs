@@ -36,8 +36,8 @@ public class Jump01 : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                rigi.velocity = new Vector3(rigi.velocity.x,0,rigi.velocity.z);
-                rigi.AddForce(0, jumpPower, 0);
+                rigi.velocity = new Vector3(rigi.velocity.x, 0, rigi.velocity.z);
+                rigi.AddForce(0, jumpPower, 0,ForceMode.VelocityChange);
                 isJump = true;
 
             }
@@ -47,7 +47,7 @@ public class Jump01 : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 rigi.velocity = new Vector3(rigi.velocity.x, 0, rigi.velocity.z);
-                rigi.AddForce(0, jumpPower, 0);
+                rigi.AddForce(0, jumpPower, 0,ForceMode.VelocityChange);
                 isJump = false;
             }
         }

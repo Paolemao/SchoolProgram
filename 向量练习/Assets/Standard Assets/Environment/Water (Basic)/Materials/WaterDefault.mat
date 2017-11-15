@@ -24,7 +24,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0.32934693, g: 0.71323526, b: 0.25697446, a: 1}
+    - _Color: {r: 1, g: 0.014705896, b: 0.03509113, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

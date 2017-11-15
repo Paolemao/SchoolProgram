@@ -14,7 +14,7 @@ public class move02Rigi : MonoBehaviour {
     void Start () {
         rigi = GetComponent<Rigidbody>();
         mousePoint = rigi.transform.position;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,27 +38,35 @@ public class move02Rigi : MonoBehaviour {
                 mousePoint = hitInfo.point;
                 mousePoint = new Vector3(mousePoint.x,transform.position.y, mousePoint.z);
             }
+
         }
         move = mousePoint - transform.position;
+        move.y = 0;
         angle = Vector3.Angle(transform.forward, move);
         if (move.sqrMagnitude>0.1f)
         {
             if (angle > 1f)
             {
-                TurnControl();
+                //Debug.Log(222222222222);
+                TurnControl(move);
             }
             else
             {
+               //Debug.Log(33333333333);
                 transform.LookAt(mousePoint);
                 move = move.normalized;
                 rigi.velocity = move * speed;
             }   
         }
+        else
+        {
+            //rigi.velocity = Vector3.zero;
+        }
         
     }
-    void TurnControl()
+    void TurnControl(Vector3 move)
     {        
         var minAngle = Mathf.Min(angle,Time.deltaTime*AngularSpeed);
-        transform.Rotate(Vector3.Cross(transform.forward,move)*minAngle);
+        transform.Rotate(Vector3.Cross(transform.forward,move),minAngle);
     }
 }
