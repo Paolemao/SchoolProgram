@@ -15,6 +15,29 @@ namespace MyList
             size = 0;
             testArray = new T[8];
         }
+        public int Count
+        {
+            get { return size; }
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < size)
+                {
+                    return testArray[index];
+                }
+                return default(T);
+            }
+            set
+            {
+                if (index >=0 && index < size)
+                {
+                    testArray[index] = value;
+                }
+            }
+        }
 
         public void Add(T testNum)
         {
@@ -42,19 +65,27 @@ namespace MyList
         }
         public void RemoveAt(int remove_index)
         {
+            if (remove_index<0||remove_index>=size)
+            {
+                return;
+            }
             int j = 0;
             T[] temp2 = new T[testArray.Length];
             testArray.CopyTo(temp2, 0);
-            for (int i=0;i<size;i++)
+            for (int i = 0; i < size; i++)
             {
-                if (i==remove_index)
+                if (i == remove_index)
                 {
                     j++;
                     testArray[i] = testArray[i + j];
                     size--;
                 }
-                testArray[i] = temp2[i +j];
+                testArray[i] = temp2[i + j];
             }
+            ////方法2：Array.Copy方法
+            //Array.Copy(testArray,remove_index+1,testArray,remove_index,size-remove_index-1);
+            //size--;
+
         }
         public void Insert(int insert_index, T testNum)
         {
@@ -84,10 +115,6 @@ namespace MyList
         public void Set(int index, T testNum)
         {
             testArray[index] = testNum;
-        }
-        public int Count()
-        {
-            return size;
         }
 
     }

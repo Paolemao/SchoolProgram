@@ -26,17 +26,18 @@ namespace MyList
             a.Remove(10);
             a.RemoveAt(5);
             a.Insert(5,99);
-            for (int i = 0; i < a.Count(); ++i)
+            for (int i = 0; i < a.Count; ++i)
             {
                 if (i == 5)
                 {
-                    Trace.Assert(a.Get(i) == 99);
+                    Trace.Assert(a[i] == 99);
                 }
                 else
                 {
-                    Trace.Assert(a.Get(i) == i + 1);
+                    Trace.Assert(a[i] == i + 1);
                 }
                 Console.WriteLine(a.Get(i));
+
             }
 
 
@@ -57,11 +58,11 @@ namespace MyList
                 int n = i + 100;
                 if (n % 100 == 99)
                 {
-                    Trace.Assert(l.Get(i) == 999);
+                    Trace.Assert(l[i] == 999);
                 }
                 else
                 {
-                    Trace.Assert(l.Get(i) == n);
+                    Trace.Assert(l[i] == n);
                 }
             }
 

@@ -1,0 +1,7 @@
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\bin\Debug\LinkedList.exe.config
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\bin\Debug\LinkedList.exe
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\bin\Debug\LinkedList.pdb
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\obj\Debug\LinkedList.csprojResolveAssemblyReference.cache
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\obj\Debug\LinkedList.csproj.CoreCompileInputs.cache
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\obj\Debug\LinkedList.exe
+E:\HuangProgram\SchoolProgram\C#基础\LinkedList\LinkedList\obj\Debug\LinkedList.pdb

@@ -1,7 +1,6 @@
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\bin\Debug\MyList.exe.config
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\bin\Debug\MyList.exe
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\bin\Debug\MyList.pdb
-E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\obj\Debug\MyList.csprojResolveAssemblyReference.cache
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\obj\Debug\MyList.csproj.CoreCompileInputs.cache
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\obj\Debug\MyList.exe
 E:\HuangProgram\SchoolProgram\C#基础\MyList\MyList\obj\Debug\MyList.pdb
