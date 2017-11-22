@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/_contents/Scene/BFS.unity
+  isLoaded: 1
+  isActive: 1

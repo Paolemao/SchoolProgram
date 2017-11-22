@@ -1,0 +1,7 @@
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\bin\Debug\Event.exe.config
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\bin\Debug\Event.exe
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\bin\Debug\Event.pdb
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\obj\Debug\Event.csprojResolveAssemblyReference.cache
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\obj\Debug\Event.csproj.CoreCompileInputs.cache
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\obj\Debug\Event.exe
+E:\HuangProgram\SchoolProgram\EventAndDelegate\Event\obj\Debug\Event.pdb
