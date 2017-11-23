@@ -130,7 +130,8 @@ public class WayFinding : MonoBehaviour {
     }
 
     delegate bool Func(Pos cur,int ox,int oy);
-    delegate bool Mount(int stepPoint);
+
+    delegate bool AstarFunc(AstarPos cur ,int oG, int ox, int oy);
     int cur_depth = 0;
     IEnumerator  BFS()
     {
@@ -464,6 +465,12 @@ public class WayFinding : MonoBehaviour {
                         if (map[cur.y, cur.x] == MOUNT)
                         {
                             step_num[cur.y + oy, cur.x + ox] = (short)(step_num[cur.y, cur.x] + 3);
+                            return true;
+                        }
+                        else if (map[cur.y, cur.x] == RIVER)
+                        {
+                            step_num[cur.y + oy, cur.x + ox] = (short)(step_num[cur.y, cur.x] + 4);
+                            return true;
                         }
                         else
                         {
@@ -491,22 +498,22 @@ public class WayFinding : MonoBehaviour {
             //上
             if (cur.y > 0)
             {
-                if (func(cur, 0, -1)) { break; }
+                if (func(cur, 0, -1)) { continue; }
             }
             //下
             if (cur.y < height - 1)
             {
-                if (func(cur, 0, 1)) { break; }
+                if (func(cur, 0, 1)) { continue; }
             }
             //左
             if (cur.x > 0)
             {
-                if (func(cur, -1, 0)) { break; }
+                if (func(cur, -1, 0)) { continue; }
             }
             //右
             if (cur.x < width - 1)
             {
-                if (func(cur, 1, 0)) { break; }
+                if (func(cur, 1, 0)) { continue; }
             }
 
             if (step_num[cur.y, cur.x] > cur_depth)//每层等待0.1秒
@@ -520,6 +527,115 @@ public class WayFinding : MonoBehaviour {
         }
 
     }
+    AstarPos[,] astar_search;
+
+    IEnumerator AStar02()
+    {
+        //List<AstarPos> openList = new List<AstarPos>();
+        //List<AstarPos> closeList = new List<AstarPos>();
+        astar_search = new AstarPos[Map.GetLength(0), Map.GetLength(1)];//01
+        List<Pos> list = new List<Pos>();//02
+        Pos startPos = new Pos(start_x,start_y);//03
+        Pos endPos = new Pos(end_x, end_y);//04
+        astar_search[startPos.y, startPos.x] = new AstarPos(0,0);//05
+        list.Add(startPos);//06
+
+        //每个点的处理函数
+        Func func = (Pos cur, int ox, int oy) =>
+         {
+             var o_score = astar_search[cur.y + oy, cur.x + ox];
+             if (o_score!=null&&o_score.closed)
+             {
+                 return false;
+             }
+             var cur_score = astar_search[cur.y, cur.x];
+             Pos o_pos = new Pos(cur.x+ox,cur.y+oy);
+             if (map[cur.y+oy,cur.x+ox]==END)
+             {
+                 var a = new AstarPos(cur_score.G+1,0);
+                 a.parent = cur;
+                 astar_search[cur.y + oy, cur.x + ox] = a;
+                 Debug.Log("寻路完成");
+                 return true;
+             }
+             if (map[cur.y+oy,cur.x+ox]==0)
+             {
+                 if (o_score == null)
+                 {
+                     var a = new AstarPos(cur_score.G + 1, Pos.AStarDistance(o_pos, endPos));
+                     a.parent = cur;
+                     astar_search[cur.y + oy, cur.x + ox] = a;
+                     list.Add(o_pos);
+                 }
+                 else if (o_score.G>cur_score.G+1)
+                 {
+                     o_score.G = cur_score.G + 1;
+                     o_score.parent = cur;
+                     if (!list.Contains(o_pos))
+                     {
+                         list.Add(o_pos);
+                     }
+                 }
+             }
+             return false;
+         };
+       
+        while (list.Count > 0)
+        {
+            //给自定义类的二维数组排序
+            list.Sort((Pos a1,Pos a2)=>
+            {
+                AstarPos b1 = astar_search[a1.y, a1.x];
+                AstarPos b2 = astar_search[a2.y, a2.x];
+
+                return b1.CompareTo(b2);
+            });
+            Pos cur = list[0];
+            list.RemoveAt(0);
+
+            astar_search[cur.y, cur.x].closed = true;
+
+            //处理上下左右的方格
+            //上
+            if (cur.y > 0)
+            {
+                if (func(cur, 0, -1)) { break; }
+            }
+            //下
+            if (cur.y < height - 1)
+            {
+                if (func(cur, 0, 1)) { break; }
+            }
+            //左
+            if (cur.x > 0)
+            {
+                if (func(cur,  -1, 0)) { break; }
+            }
+            //右
+            if (cur.x < width - 1)
+            {
+                if (func(cur,  1, 0)) { break; }
+            }
+
+            short[,] temp_map = new short[map.GetLength(0), map.GetLength(1)];
+            for (int i = 0; i < height; ++i)
+            {
+                for (int j = 0; j < width; ++j)
+                {
+                    temp_map[i, j] = short.MaxValue;
+                    //if (map_search[i,j] != null && map_search[i,j].closed)
+                    if (astar_search[i, j] != null)
+                    {
+                        temp_map[i, j] = (short)astar_search[i, j].F;
+                    }
+                }
+            }
+            RefashPath(temp_map);
+            yield return new WaitForSeconds(0.1f);
+
+        }
+    }
+
 
 
     void Refesh()
@@ -566,7 +682,7 @@ public class WayFinding : MonoBehaviour {
         {
             for (int j = 0; j < width; j++)
             {
-                if (map[i, j] !=WALL&&step_num[i,j]!=short.MaxValue)
+                if (map[i, j] ==0&& stepNum[i,j]!=short.MaxValue)
                 {
                     var go = Instantiate(prefab_path, new Vector3(j + table.position.x, 0.5f, i + table.position.z), Quaternion.identity, pathParent.transform);
                     var text_go = go.GetComponentInChildren<TextMesh>();
@@ -588,7 +704,8 @@ public class WayFinding : MonoBehaviour {
         //StartCoroutine(BFSShowPath());
         //StartCoroutine(DFS());
         //StartCoroutine(DFS02());
-        StartCoroutine(BFS02());
+        //StartCoroutine(BFS02());
+        StartCoroutine(AStar02());
     }
     //private void Update()
     //{
@@ -628,6 +745,50 @@ public class Pos: MonoBehaviour
         float d2 = Mathf.Abs(cur.y-end.y);
 
         return d1 + d2;
+    }
+
+}
+public class AstarPos
+{
+    public float G = 0;
+    public float H = 0;
+
+    public bool closed = false;
+
+    public Pos parent = null;
+
+    public AstarPos(float g,float h)
+    {
+        G = g;
+        H = h;
+        closed = false;
+    }
+
+    public float F
+    {
+        get { return G + H; }
+    }
+
+    public int CompareTo(AstarPos a2)
+    {
+        if(F==a2.F)
+        {
+            return 0;
+        }
+        if(F>a2.F)
+        {
+            return 1;
+        }
+        return -1;
+    }
+
+    public bool Equals(AstarPos a)
+    {
+        if (a.F==F)
+        {
+            return true;
+        }
+        return false;
     }
 
 }
