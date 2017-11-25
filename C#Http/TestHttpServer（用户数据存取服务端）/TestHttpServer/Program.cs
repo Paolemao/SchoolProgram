@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using LitJson;
 
 namespace TestHttpServer
 {
@@ -29,6 +30,8 @@ namespace TestHttpServer
         {
             Dictionary<string, string> userdata = new Dictionary<string, string>();//字典存储用户名，及用户密码
             Dictionary<string, string> userMsg = new Dictionary<string, string>();//通过用户信息
+            JsonData json = new JsonData();
+       
             int count = 1;
             while (true)
             {
@@ -76,8 +79,9 @@ namespace TestHttpServer
                     else
                     {
                         userdata.Add(user, password);//如果之前没有此user信息，userinf字典追加获得的用户信息
-                        dateMsg = "1";
-                        userMsg.Add(userPass, dateMsg);
+                        //dateMsg = "1";
+                        //userMsg.Add(userPass, dateMsg);
+                        json[userPass] = "sucess";
                     }
 
 
@@ -105,7 +109,7 @@ namespace TestHttpServer
                 {
                     string user = "";
                     string password = "";
-                    string backMsg = "1";
+                    string backMsg = "0";
                     //var keys = httpListenerContext.Request.QueryString.AllKeys;//获取请求中包含的查询字符串如？后的id=1，为一个字符串数组
                     user = httpListenerContext.Request.QueryString.Get("user");
                     password = httpListenerContext.Request.QueryString.Get("password");
@@ -129,8 +133,10 @@ namespace TestHttpServer
                         //writer.WriteLine("这是服务端返回客户端的数据：");    
                         if (backMsg != null)
                         {
-                            writer.Write(backMsg);//返回玩家存储的数据
-                        }
+                            //writer.Write(backMsg);//返回玩家存储的数据
+                            string j = json.ToJson();
+                            writer.Write(j);
+                        } 
                         else
                         {
                             writer.Write("读取失败!");

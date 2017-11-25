@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Security;
+using System.Security.Cryptography;
 
 namespace TestClient
 {
@@ -11,6 +14,7 @@ namespace TestClient
     /// </summary>
     class Program
     {
+
         static void Main(string[] args)
         {
             Console.WriteLine("------------测试客户端------------");
@@ -25,6 +29,7 @@ namespace TestClient
                     string username = Console.ReadLine();
                     Console.WriteLine("请输入要存储的用户密码：");
                     string userPassword = Console.ReadLine();
+                    userPassword=MD5(userPassword);
                     Console.WriteLine("请输入要存储的数据内容:");
                     string dateMsg = Console.ReadLine();
 
@@ -40,7 +45,7 @@ namespace TestClient
                     string username = Console.ReadLine();
                     Console.WriteLine("请输入要存储的用户密码：");
                     string userPassword = Console.ReadLine();
-
+                    userPassword = MD5(userPassword);//加密
                     string backmsg = Load(username,userPassword);//读取数据
                     Console.WriteLine(backmsg);//输出读取返回信息
                     Console.WriteLine("-------------------------");
@@ -55,6 +60,28 @@ namespace TestClient
                 //Console.ReadKey();
             }
           
+        }
+
+        static string MD5(string souce)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+
+            //将输入的密码转化成字节数组
+            byte[] bPwd = Encoding.UTF8.GetBytes(souce);
+
+            //计算指定字节数组的哈希值
+            byte[] bMD5 = md5.ComputeHash(bPwd);
+
+            //释放加密服务提供类的所有资源
+            md5.Clear();
+
+            StringBuilder sbMD5Pwd=new StringBuilder();
+            for (int i=0;i<bMD5.Length;i++)
+            {
+                //将每个字节数据转化为2位的16进制字符
+                sbMD5Pwd.Append(bMD5[i].ToString("x2"));
+            }
+            return sbMD5Pwd.ToString();
         }
        
         //向服务器存储数据，返回提示信息

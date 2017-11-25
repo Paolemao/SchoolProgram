@@ -5,3 +5,4 @@ E:\HuangProgram\SchoolProgram\C#Http\TestHttpServer（用户数据存取服务�
 E:\HuangProgram\SchoolProgram\C#Http\TestHttpServer（用户数据存取服务端）\TestHttpServer\obj\Debug\TestHttpServer.csproj.CoreCompileInputs.cache
 E:\HuangProgram\SchoolProgram\C#Http\TestHttpServer（用户数据存取服务端）\TestHttpServer\obj\Debug\TestHttpServer.exe
 E:\HuangProgram\SchoolProgram\C#Http\TestHttpServer（用户数据存取服务端）\TestHttpServer\obj\Debug\TestHttpServer.pdb
+E:\HuangProgram\SchoolProgram\C#Http\TestHttpServer（用户数据存取服务端）\TestHttpServer\bin\Debug\LitJson.dll
