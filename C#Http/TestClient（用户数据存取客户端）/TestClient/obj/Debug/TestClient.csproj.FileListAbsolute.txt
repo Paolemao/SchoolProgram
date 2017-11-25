@@ -1,0 +1,6 @@
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\bin\Debug\TestClient.exe.config
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\bin\Debug\TestClient.exe
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\bin\Debug\TestClient.pdb
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\obj\Debug\TestClient.csproj.CoreCompileInputs.cache
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\obj\Debug\TestClient.exe
+E:\HuangProgram\SchoolProgram\C#Http\TestClient（用户数据存取客户端）\TestClient\obj\Debug\TestClient.pdb
