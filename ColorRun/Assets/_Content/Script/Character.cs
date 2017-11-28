@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour {
 
@@ -9,6 +11,9 @@ public class Character : MonoBehaviour {
     public BoxCollider c_player;
     public Transform end_point;
     public MeshRenderer mesh_player;
+    //public Image _win;
+
+    public UnityEvent _win;
 
 
     //跳跃
@@ -17,6 +22,8 @@ public class Character : MonoBehaviour {
     bool isGround;
     bool speedUp;
     bool die=false;
+    bool jumping;
+    bool win;
 
     Vector3 startPoint;
 
@@ -25,7 +32,34 @@ public class Character : MonoBehaviour {
     float _groundCheck01=0.5f;
     float _groundCheck02=1f;
 
+    int golds_num;
+
     List<GameObject> golds=new List<GameObject>();
+
+    public int Golds_num
+    {
+        get
+        {
+            return golds_num;
+        }
+        set
+        {
+            golds_num = value;
+        }
+    }
+
+    public bool Win
+    {
+        get
+        {
+            return win;
+        }
+
+        set
+        {
+            win = value;
+        }
+    }
 
     void Start () {
         rigi = GetComponent<Rigidbody>();
@@ -35,6 +69,7 @@ public class Character : MonoBehaviour {
         isJump_second = true;
         isGround = true;
         speedUp = false;
+        jumping = true;
         mesh_player.material.color = Color.yellow;
         
     }
@@ -44,6 +79,7 @@ public class Character : MonoBehaviour {
         Move();
         UpdateControl();
         //rigi.velocity = transform.forward.normalized * speed;
+        
 
     }
     void Update () {
@@ -53,7 +89,9 @@ public class Character : MonoBehaviour {
         GroundCheck();
         ColorControl();
         //transform.Translate(t_player.forward.normalized * speed * Time.deltaTime);
+        //Golds_num = golds.Count;
         StartCoroutine(Restart());
+
     }
     void UpdateControl()
     {
@@ -62,7 +100,7 @@ public class Character : MonoBehaviour {
         {
             StartCoroutine(Jump());
         }
-        if (isJump_first==true&&isJump_second==false)
+        else if (isJump_first==true&&isJump_second==false)
         {
             StartCoroutine(Jump02());
         }
@@ -72,6 +110,7 @@ public class Character : MonoBehaviour {
         if (collision.collider.tag == "Runway")
         {
             isJump_first = false;
+            jumping = true;
         }
         if(collision.gameObject.GetComponent<MeshRenderer>().material.color != mesh_player.material.color)
         {
@@ -93,6 +132,13 @@ public class Character : MonoBehaviour {
         {
             other.gameObject.SetActive(false);
             golds.Add(other.gameObject);
+            Golds_num += 1;
+        }
+        if (other.tag=="End")
+        {
+            win = true;
+            _win.Invoke();
+
         }
     }
     void ColorControl()
@@ -157,26 +203,40 @@ public class Character : MonoBehaviour {
     }
     IEnumerator Jump()
     {
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButtonUp(0))
         {
+            jumping = false;
+            //isJump_first = true;
+            //isJump_second = false;
+            
+        }   
+        if (Input.GetMouseButton(0)&&jumping)
+        {
+
             rigi.velocity = new Vector3(rigi.velocity.x, 0, rigi.velocity.z);
-            rigi.AddForce(0, jumpPower, 0, ForceMode.VelocityChange);
+            rigi.AddForce (0,jumpPower, 0);
             yield return new WaitForSeconds(0.5f);
             isJump_first = true;
             isJump_second = false;
+            jumping = false;
 
-        }
-        else
-        {
-            yield break;
         }
     }
     IEnumerator Jump02()
     {
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButtonDown(0))
         {
+            jumping = true;
+            //isJump_second = true;
+        }
+
+        if (Input.GetMouseButton(0)&&jumping)
+        {
+            Debug.Log("++++++++++++++++++++++++++++++++++");
             rigi.velocity = new Vector3(rigi.velocity.x, 0, rigi.velocity.z);
-            rigi.AddForce(0, jumpPower, 0, ForceMode.VelocityChange);
+            rigi.AddForce(0, jumpPower, 0);
             yield return new WaitForSeconds(0.5f);
             isJump_second = true;
         }
@@ -203,9 +263,9 @@ public class Character : MonoBehaviour {
             mesh_player.material.color = Color.yellow;
             foreach (GameObject obj in golds)
             {
-                Debug.Log("+++++++++++++++++++++++++");
                 obj.SetActive(true);
             }
+            Golds_num = 0;
         }
     }
 }
